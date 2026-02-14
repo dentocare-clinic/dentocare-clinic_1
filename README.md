@@ -3,264 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DentoCare | عيادات دنتوكير</title>
+    <title>DentoCare | عيادات دنتوكير المتخصصة</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        :root { --primary: #00b4d8; --secondary: #03045e; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: linear-gradient(135deg, #f0f9ff 0%, #cbebff 100%); color: var(--secondary); min-height: 100vh; text-align: center; }
-        nav { background: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-weight: 900; font-size: 1.4rem; color: var(--primary); display: flex; align-items: center; gap: 5px; }
-        .booking-card { background: white; max-width: 450px; margin: 40px auto; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        :root { 
+            --primary: #00b4d8; 
+            --secondary: #03045e; 
+            --accent: #25d366;
+            --glass: rgba(255, 255, 255, 0.8);
+        }
+
+        /* منع ظهور أي نص تائه في الأعلى */
+        html { visibility: visible; } 
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; transition: 0.3s ease; }
+        
+        body { background-color: #f0f9ff; color: var(--secondary); overflow-x: hidden; min-height: 100vh; }
+        
+        /* الخلفية المتحركة */
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
+
+        /* الهيدر الزجاجي العصري */
+        nav { 
+            background: var(--glass); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            padding: 10px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+
+        .logo { font-weight: 900; font-size: 1.4rem; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        
+        /* حاوية اللغات - متجاوبة */
+        .lang-switcher { display: flex; gap: 5px; flex-wrap: wrap; max-width: 60%; justify-content: flex-end; }
+        .lang-btn { cursor: pointer; border: 1px solid var(--primary); background: white; padding: 4px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; color: var(--primary); }
+        .lang-btn:hover { background: var(--primary); color: white; }
+
+        .container { padding: 30px 5%; text-align: center; }
+        
+        /* النجوم والتقييم */
+        .rating { color: #f1c40f; margin-bottom: 10px; font-size: 0.9rem; }
+
+        h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 10px; color: var(--secondary); }
+        .subtitle { color: #666; font-size: 1.1rem; margin-bottom: 20px; }
+
+        /* حالة العيادة */
+        .status-badge { display: inline-block; padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        /* كرت الحجز المطوّر */
+        .booking-card { 
+            background: white; max-width: 500px; margin: auto; padding: 30px; 
+            border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+            border: 1px solid rgba(0, 180, 216, 0.1); 
+        }
+
         .input-group { text-align: right; margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Cairo'; }
-        .btn-wa { background: #25d366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: 900; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .contacts { display: flex; flex-direction: column; gap: 12px; max-width: 450px; margin: 20px auto; }
-        .contact-link { background: rgba(255,255,255,0.6); padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--secondary); border: 1px solid white; transition: 0.3s; }
-        .contact-link:hover { background: white; transform: scale(1.02); }
+        label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.9rem; color: var(--secondary); }
+        input, select { width: 100%; padding: 12px; border: 1.5px solid #eef2f3; border-radius: 12px; font-size: 1rem; outline: none; }
+        input:focus { border-color: var(--primary); }
+
+        .btn-wa { 
+            background: var(--accent); color: white; width: 100%; padding: 16px; 
+            border: none; border-radius: 15px; font-weight: 900; font-size: 1.2rem; 
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); margin-top: 10px;
+        }
+
+        /* المميزات العصرية (FAB) */
+        .fab-container { position: fixed; bottom: 25px; right: 25px; z-index: 1000; }
+        .fab-main { width: 60px; height: 60px; border-radius: 50%; background: var(--primary); color: white; border: none; font-size: 24px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .fab-menu { display: none; flex-direction: column; gap: 10px; position: absolute; bottom: 75px; right: 5px; }
+        .fab-item { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* شبكة التواصل */
+        .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; max-width: 1000px; margin: 40px auto; }
+        .contact-item { background: white; padding: 20px; border-radius: 20px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--secondary); border: 1px solid #f0f0f0; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .contact-item:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .contact-item i { font-size: 1.5rem; color: var(--primary); }
+        .contact-item div { text-align: right; }
+        .contact-item h4 { font-size: 0.75rem; color: #888; margin-bottom: 2px; }
+        .contact-item p { font-weight: 700; font-size: 0.95rem; }
+
+        /* تعديلات الاتجاه للغات الأجنبية */
+        [lang]:not([lang="ar"]):not([lang="ur"]) body { text-align: left; }
+        [lang]:not([lang="ar"]):not([lang="ur"]) .input-group, 
+        [lang]:not([lang="ar"]):not([lang="ur"]) .contact-item div { text-align: left; }
+
+        #topBtn { display: none; position: fixed; bottom: 25px; left: 25px; background: white; color: var(--primary); width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--primary); cursor: pointer; z-index: 1000; font-size: 20px; }
     </style>
 </head>
 <body>
 
+    <div id="particles-js"></div>
+
     <nav>
-        <div class="logo">DentoCare <i class="fas fa-tooth"></i></div>
-        <div style="font-size: 0.8rem; font-weight: bold;">الرياض - حي العارض</div>
+        <a href="#" class="logo">DentoCare <i class="fas fa-tooth"></i></a>
+        <div class="lang-switcher">
+            <button class="lang-btn" onclick="changeLang('ar')">🇸🇦 AR</button>
+            <button class="lang-btn" onclick="changeLang('en')">🇺🇸 EN</button>
+            <button class="lang-btn" onclick="changeLang('fr')">🇫🇷 FR</button>
+            <button class="lang-btn" onclick="changeLang('es')">🇪🇸 ES</button>
+            <button class="lang-btn" onclick="changeLang('it')">🇮🇹 IT</button>
+            <button class="lang-btn" onclick="changeLang('pt')">🇵🇹 PT</button>
+            <button class="lang-btn" onclick="changeLang('ru')">🇷🇺 RU</button>
+            <button class="lang-btn" onclick="changeLang('hi')">🇮🇳 HI</button>
+            <button class="lang-btn" onclick="changeLang('ur')">🇵🇰 UR</button>
+        </div>
     </nav>
 
-    <div style="padding: 20px;">
-        <h1 style="font-weight: 900; margin-top: 20px;">عيادات دنتوكير المتخصصة</h1>
-        <p style="color: #555;">نخبة من الاستشاريين السعوديين</p>
-
-        <div class="booking-card">
-            <div class="input-group">
-                <label>الاسم الكامل</label>
-                <input type="text" id="nameInput" placeholder="أدخل اسمك">
-            </div>
-            <div class="input-group">
-                <label>رقم الجوال</label>
-                <input type="tel" id="phoneInput" placeholder="05xxxxxxxx">
-            </div>
-            <button class="btn-wa" onclick="sendToWA()">تأكيد عبر واتساب <i class="fab fa-whatsapp"></i></button>
+    <div class="container">
+        <div class="rating" data-aos="fade-down">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <span id="ratingText"> (4.9/5 تقييم مراجعينا)</span>
         </div>
 
-        <div class="contacts">
-            <a href="mailto:dentocareclinics1@gmail.com" class="contact-link">
-                <i class="fas fa-envelope"></i> <span>dentocareclinics1@gmail.com</span>
+        <h1 id="t1">عيادات دنتوكير المتخصصة</h1>
+        <p id="t2" class="subtitle">نخبة من الاستشاريين السعوديين بجميع التخصصات</p>
+        
+        <div id="statusBadge" class="status-badge"></div>
+
+        <div class="booking-card" data-aos="zoom-in">
+            <h2 id="tBook" style="margin-bottom: 20px;">حجز موعد</h2>
+            <div class="input-group">
+                <label id="l1">الاسم الكامل</label>
+                <input type="text" id="nameIn" placeholder="...">
+            </div>
+            <div class="input-group">
+                <label id="l2">رقم الجوال</label>
+                <input type="tel" id="phoneIn" placeholder="05xxxxxxxx">
+            </div>
+            <div class="input-group">
+                <label id="l3">الخدمة المطلوبة</label>
+                <select id="servIn">
+                    <option id="opt1">استشارة عامة</option>
+                    <option id="opt2">تنظيف وتلميع</option>
+                    <option id="opt3">تبييض أسنان</option>
+                </select>
+            </div>
+            <button class="btn-wa" onclick="sendWA()">
+                <span id="btnText">تأكيد عبر واتساب</span> <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+
+        <div class="contacts-grid">
+            <a href="https://www.google.com/maps/search/?api=1&query=DentoCare+Riyadh" target="_blank" class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div><h4 id="ct1">موقعنا</h4><p id="ct1sub">الرياض - حي العارض</p></div>
             </a>
-            <a href="https://www.instagram.com/dentocare_1" target="_blank" class="contact-link">
-                <i class="fab fa-instagram"></i> <span>@dentocare_1</span>
+            <a href="https://www.instagram.com/dentocare_1/" target="_blank" class="contact-item">
+                <i class="fab fa-instagram" style="color: #e1306c;"></i>
+                <div><h4>Instagram</h4><p>@dentocare_1</p></div>
             </a>
-            <a href="tel:+966112043386" class="contact-link">
-                <i class="fas fa-phone-alt"></i> <span>011 204 3386</span>
+            <a href="mailto:dentocareclinics1@gmail.com" class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div><h4 id="ct2">البريد الإلكتروني</h4><p>dentocareclinics1@gmail.com</p></div>
+            </a>
+            <a href="tel:+966112043386" class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <div><h4 id="ct3">الهاتف الثابت</h4><p>011 204 3386</p></div>
             </a>
         </div>
     </div>
 
+    <div class="fab-container">
+        <div class="fab-menu" id="fabMenu">
+            <a href="tel:+966112043386" class="fab-item" style="background:#3498db;"><i class="fas fa-phone"></i></a>
+            <a href="https://wa.me/966560502760" class="fab-item" style="background:#25d366;"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <button class="fab-main" onclick="toggleFab()"><i class="fas fa-plus" id="fabIcon"></i></button>
+    </div>
+
+    <button id="topBtn" onclick="window.scrollTo(0,0)"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        function sendToWA() {
-            const n = document.getElementById('nameInput').value;
-            const p = document.getElementById('phoneInput').value;
+        AOS.init();
+
+        // 1. الخلفية
+        particlesJS("particles-js", {"particles":{"number":{"value":60},"color":{"value":"#00b4d8"},"line_linked":{"enable":true,"opacity":0.2},"move":{"speed":1}}});
+
+        // 2. القاموس الضخم (9 لغات)
+        const dict = {
+            ar: {t1:"عيادات دنتوكير المتخصصة", t2:"نخبة من الاستشاريين السعوديين", tb:"حجز موعد", l1:"الاسم الكامل", l2:"رقم الجوال", l3:"الخدمة المطلوبة", bt:"تأكيد عبر واتساب", r:"(4.9/5 تقييم مراجعينا)", c1:"موقعنا", c1s:"الرياض - حي العارض", c2:"البريد الإلكتروني", c3:"الهاتف", dir:"rtl"},
+            en: {t1:"DentoCare Specialized Clinics", t2:"Elite Saudi Consultants", tb:"Book Appointment", l1:"Full Name", l2:"Phone Number", l3:"Service Type", bt:"Confirm via WhatsApp", r:"(4.9/5 Our Rating)", c1:"Location", c1s:"Riyadh - Al Arid", c2:"Email", c3:"Phone", dir:"ltr"},
+            fr: {t1:"Cliniques DentoCare", t2:"Consultants Saoudiens d'élite", tb:"Prendre RDV", l1:"Nom Complet", l2:"Téléphone", l3:"Service", bt:"Confirmer sur WhatsApp", r:"(4.9/5 Note)", c1:"Emplacement", c1s:"Riyad", c2:"E-mail", c3:"Fixe", dir:"ltr"},
+            es: {t1:"Clínicas DentoCare", t2:"Consultores saudíes de élite", tb:"Reservar cita", l1:"Nombre completo", l2:"Teléfono", l3:"Servicio", bt:"Confirmar por WhatsApp", r:"(4.9/5 Calificación)", c1:"Ubicación", c1s:"Riad", c2:"Correo", c3:"Teléfono", dir:"ltr"},
+            it: {t1:"Cliniche DentoCare", t2:"Consulenti sauditi d'élite", tb:"Prenota", l1:"Nome completo", l2:"Telefono", l3:"Servizio", bt:"Conferma via WhatsApp", r:"(4.9/5 Voto)", c1:"Posizione", c1s:"Riad", c2:"Email", c3:"Telefono", dir:"ltr"},
+            pt: {t1:"Clínicas DentoCare", t2:"Consultores sauditas de elite", tb:"Marcar Consulta", l1:"Nome completo", l2:"Telemóvel", l3:"Serviço", bt:"Confirmar no WhatsApp", r:"(4.9/5 Nota)", c1:"Localização", c1s:"Riade", c2:"E-mail", c3:"Telefone", dir:"ltr"},
+            ru: {t1:"Клиники DentoCare", t2:"Элитные специалисты", tb:"Запись на прием", l1:"Полное имя", l2:"Телефон", l3:"Услуга", bt:"Подтвердить в WhatsApp", r:"(4.9/5 Рейтинг)", c1:"Локация", c1s:"Эр-Рияд", c2:"Почта", c3:"Телефон", dir:"ltr"},
+            hi: {t1:"डेंटोकेयर स्पेशलाइज्ड क्लीनिक", t2:"एलीट सऊदी सलाहकार", tb:"अपॉइंटमेंट लें", l1:"पूरा नाम", l2:"फोन नंबर", l3:"सेवा प्रकार", bt:"व्हाट्सएप से पुष्टि करें", r:"(4.9/5 रेटिंग)", c1:"स्थान", c1s:"रियाद", c2:"ईमेल", c3:"फोन", dir:"ltr"},
+            ur: {t1:"ڈینٹو کیئر اسپیشلائزڈ کلینک", t2:"ایلیٹ سعودی کنسلٹنٹس", tb:"بکنگ کریں", l1:"پورا نام", l2:"فون نمبر", l3:"سروس کی قسم", bt:"واٹس ایپ سے تصدیق کریں", r:"(4.9/5 ریٹنگ)", c1:"مقام", c1s:"ریاض", c2:"ای میل", c3:"فون", dir:"rtl"}
+        };
+
+        function changeLang(l) {
+            document.documentElement.lang = l;
+            document.documentElement.dir = dict[l].dir;
+            document.getElementById('t1').innerText = dict[l].t1;
+            document.getElementById('t2').innerText = dict[l].t2;
+            document.getElementById('tBook').innerText = dict[l].tb;
+            document.getElementById('l1').innerText = dict[l].l1;
+            document.getElementById('l2').innerText = dict[l].l2;
+            document.getElementById('l3').innerText = dict[l].l3;
+            document.getElementById('btnText').innerText = dict[l].bt;
+            document.getElementById('ratingText').innerText = dict[l].r;
+            document.getElementById('ct1').innerText = dict[l].c1;
+            document.getElementById('ct1sub').innerText = dict[l].c1s;
+            document.getElementById('ct2').innerText = dict[l].c2;
+            document.getElementById('ct3').innerText = dict[l].c3;
+            updateStatus();
+        }
+
+        // 3. حالة العيادة
+        function updateStatus() {
+            const h = new Date().getHours();
+            const b = document.getElementById('statusBadge');
+            const isAr = document.documentElement.lang === 'ar' || document.documentElement.lang === 'ur';
+            if(h >= 14 && h < 22) {
+                b.style.background = "#d1fae5"; b.style.color = "#065f46";
+                b.innerText = isAr ? "● مفتوح الآن - نستقبلكم" : "● Open Now - Welcoming You";
+            } else {
+                b.style.background = "#fee2e2"; b.style.color = "#991b1b";
+                b.innerText = isAr ? "● مغلق حالياً" : "● Closed Now";
+            }
+        }
+        updateStatus();
+
+        // 4. FAB & Scroll
+        function toggleFab() {
+            const m = document.getElementById('fabMenu');
+            const i = document.getElementById('fabIcon');
+            m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+            i.style.transform = m.style.display === 'flex' ? 'rotate(45deg)' : 'rotate(0deg)';
+        }
+
+        window.onscroll = function() {
+            document.getElementById('topBtn').style.display = window.scrollY > 400 ? 'block' : 'none';
+        };
+
+        // 5. إرسال الواتساب
+        function sendWA() {
+            const n = document.getElementById('nameIn').value;
+            const p = document.getElementById('phoneIn').value;
+            const s = document.getElementById('servIn').value;
             if(n && p) {
-                window.open(`https://wa.me/966560502760?text=حجز جديد:%0Aالاسم: ${n}%0Aالجوال: ${p}`, '_blank');
-            } else { alert("يرجى إكمال البيانات"); }
+                window.open(`https://wa.me/966560502760?text=حجز جديد من الموقع:%0Aالاسم: ${n}%0Aالجوال: ${p}%0Aالخدمة: ${s}`, '_blank');
+            } else {
+                alert(document.documentElement.dir === 'rtl' ? "يرجى ملء البيانات" : "Please fill all fields");
+            }
         }
     </script>
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-    /* إنشاء حاوية للخلفية */
-    var div = document.createElement('div');
-    div.id = 'particles-js';
-    div.style.position = 'fixed';
-    div.style.width = '100%';
-    div.style.height = '100%';
-    div.style.top = '0';
-    div.style.left = '0';
-    div.style.zIndex = '-1'; // لتبقى خلف المحتوى
-    document.body.prepend(div);
-
-    /* تشغيل التأثير */
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 80 },
-            "color": { "value": "#00b4d8" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.5 },
-            "size": { "value": 3 },
-            "line_linked": { "enable": true, "distance": 150, "color": "#00b4d8", "opacity": 0.4, "width": 1 },
-            "move": { "enable": true, "speed": 2 }
-        },
-        "interactivity": {
-            "events": { "onhover": { "enable": true, "mode": "repulse" } }
-        }
-    });
-</script>
-<a href="instagram://user?username=dentocare_1" onclick="window.location.href='https://www.instagram.com/dentocare_1'; return false;" class="contact-link">
-    <i class="fab fa-instagram"></i>
-    <span>@dentocare_1</span>
-</a>
-<a href="https://maps.google.com/?q=DentoCare+Clinics+حي+العارض" target="_blank" class="contact-link">
-    <i class="fas fa-map-marker-alt" style="color: #ff4757;"></i>
-    <span>موقع العيادة (خرائط جوجل)</span>
-</a>
-<div id="status-badge" style="display:inline-block; padding:5px 15px; border-radius:20px; font-weight:bold; margin-top:10px;">
-    </div>
-
-<script>
-    function updateStatus() {
-        const hour = new Date().getHours();
-        const badge = document.getElementById('status-badge');
-        // إذا كان الوقت بين 2 ظهراً و 10 مساءً
-        if(hour >= 14 && hour < 22) {
-            badge.style.background = "#d1fae5"; badge.style.color = "#065f46";
-            badge.innerHTML = "● مفتوح الآن - نستقبل حجوزاتكم";
-        } else {
-            badge.style.background = "#fee2e2"; badge.style.color = "#991b1b";
-            badge.innerHTML = "● مغلق الآن - يمكنك الحجز للموعد القادم";
-        }
-    }
-    updateStatus();
-</script>
-<div class="input-group">
-    <label>نوع الخدمة</label>
-    <select id="serviceType" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; font-family:'Cairo';">
-        <option>استشارة عامة</option>
-        <option>تنظيف وتلميع</option>
-        <option>تبييض أسنان</option>
-        <option>تقويم أسنان</option>
-    </select>
-</div>
-
-<script>
-    // داخل دالة sendToWA أضف:
-    // const service = document.getElementById('serviceType').value;
-    // ثم أضفها لنص الرسالة: `الخدمة: ${service}`
-</script>
-<nav>
-    <div class="logo">DentoCare <i class="fas fa-tooth"></i></div>
-    <div class="lang-switcher">
-        <button onclick="changeLang('ar')" style="cursor:pointer; border:none; background:none; font-family:'Cairo'; font-weight:bold;">AR</button> | 
-        <button onclick="changeLang('en')" style="cursor:pointer; border:none; background:none; font-family:'Cairo'; font-weight:bold;">EN</button> | 
-        <button onclick="changeLang('fr')" style="cursor:pointer; border:none; background:none; font-family:'Cairo'; font-weight:bold;">FR</button>
-    </div>
-</nav>
-
-<script>
-    const translations = {
-        ar: {
-            title: "عيادات دنتوكير المتخصصة",
-            subtitle: "نخبة من الاستشاريين السعوديين بجميع التخصصات",
-            book: "طلب حجز موعد",
-            namePl: "الاسم الكامل",
-            btn: "تأكيد عبر واتساب",
-            dir: "rtl"
-        },
-        en: {
-            title: "DentoCare Specialized Clinics",
-            subtitle: "Elite Saudi Consultants in all specialties",
-            book: "Book an Appointment",
-            namePl: "Full Name",
-            btn: "Confirm via WhatsApp",
-            dir: "ltr"
-        },
-        fr: {
-            title: "Cliniques Spécialisées DentoCare",
-            subtitle: "Consultants Saoudiens d'élite dans toutes les spécialités",
-            book: "Prendre un RDV",
-            namePl: "Nom Complet",
-            btn: "Confirmer via WhatsApp",
-            dir: "ltr"
-        }
-    };
-
-    function changeLang(lang) {
-        // تغيير اتجاه الموقع (من اليمين لليسار أو العكس)
-        document.documentElement.dir = translations[lang].dir;
-        document.documentElement.lang = lang;
-
-        // تغيير النصوص (يجب إضافة id لكل نص تريد ترجمته)
-        document.querySelector('h1').innerText = translations[lang].title;
-        document.querySelector('.subtitle').innerText = translations[lang].subtitle;
-        document.querySelector('h3').innerText = translations[lang].book;
-        document.querySelector('label').innerText = translations[lang].namePl;
-        document.querySelector('.btn-wa').childNodes[0].textContent = translations[lang].btn + " ";
-    }
-</script>
-
-<div class="lang-switcher">
-    <button class="lang-btn" onclick="changeLang('ar')">🇸🇦 AR</button>
-    <button class="lang-btn" onclick="changeLang('en')">🇺🇸 EN</button>
-    <button class="lang-btn" onclick="changeLang('fr')">🇫🇷 FR</button>
-    <button class="lang-btn" onclick="changeLang('ru')">🇷🇺 RU</button>
-    <button class="lang-btn" onclick="changeLang('hi')">🇮🇳 HI</button>
-    <button class="lang-btn" onclick="changeLang('ur')">🇵🇰 UR</button>
-</div>
-const strings = {
-    ar: {t1:"عيادات دنتوكير المتخصصة", t2:"نخبة من الاستشاريين السعوديين", l1:"الاسم الكامل", l2:"رقم الجوال", l3:"الخدمة", bt:"تأكيد عبر واتساب", dir:"rtl"},
-    en: {t1:"DentoCare Specialized Clinics", t2:"Elite Saudi Consultants", l1:"Full Name", l2:"Phone Number", l3:"Service Type", bt:"Confirm via WhatsApp", dir:"ltr"},
-    fr: {t1:"Cliniques DentoCare", t2:"Consultants d'élite", l1:"Nom Complet", l2:"Mobile", l3:"Service", bt:"Confirmer par WhatsApp", dir:"ltr"},
-    ru: {t1:"Клиники DentoCare", t2:"Элитные саудовские консультанты", l1:"Полное имя", l2:"Номер телефона", l3:"Тип услуги", bt:"Подтвердить в WhatsApp", dir:"ltr"},
-    hi: {t1:"डेंटोकेयर स्पेशलाइज्ड क्लीनिक", t2:"एलीट सऊदी सलाहकार", l1:"पूरा नाम", l2:"फोन नंबर", l3:"सेवा का प्रकार", bt:"व्हाट्सएप के माध्यम से पुष्टि करें", dir:"ltr"},
-    ur: {t1:"ڈینٹو کیئر سپیشلائزڈ کلینک", t2:"ایلیٹ سعودی کنسلٹنٹس", l1:"پورا نام", l2:"فون نمبر", l3:"سروس کی قسم", bt:"واٹس ایپ کے ذریعے تصدیق کریں", dir:"rtl"}
-};
-<button class="lang-btn" onclick="changeLang('es')">🇪🇸 ES</button>
-<button class="lang-btn" onclick="changeLang('it')">🇮🇹 IT</button>
-<button class="lang-btn" onclick="changeLang('pt')">🇵🇹 PT</button>
-es: {t1:"Clínicas DentoCare", t2:"Consultores saudíes de élite", l1:"Nombre completo", l2:"Teléfono", l3:"Servicio", bt:"Confirmar por WhatsApp", dir:"ltr"},
-it: {t1:"Cliniche DentoCare", t2:"Consulenti sauditi d'élite", l1:"Nome completo", l2:"Telefono", l3:"Servizio", bt:"Conferma via WhatsApp", dir:"ltr"},
-pt: {t1:"Clínicas DentoCare", t2:"Consultores sauditas de elite", l1:"Nome completo", l2:"Telemóvel", l3:"Serviço", bt:"Confirmar via WhatsApp", dir:"ltr"}
-<button onclick="shareClinic()" style="background:#0077b6; color:white; padding:10px 20px; border:none; border-radius:30px; cursor:pointer; margin-top:15px; font-weight:bold;">
-    <i class="fas fa-share-alt"></i> مشاركة موقع العيادة
-</button>
-
-<script>
-function shareClinic() {
-    if (navigator.share) {
-        navigator.share({ title: 'عيادات دنتوكير', text: 'احجز موعدك في أفضل عيادات الأسنان بالرياض', url: window.location.href });
-    }
-}
-</script>
-<button onclick="toggleDarkMode()" style="background:none; border:none; cursor:pointer; font-size:1.2rem;">🌓</button>
-
-<script>
-function toggleDarkMode() {
-    document.body.style.backgroundColor = document.body.style.backgroundColor === 'rgb(30, 30, 30)' ? '#f0f9ff' : '#1e1e1e';
-    document.body.style.color = document.body.style.color === 'white' ? '#03045e' : 'white';
-}
-</script>
-<div style="color:#f1c40f; margin-bottom:15px;">
-    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-    <span style="color:#555; font-size:0.9rem; margin-right:5px;">(4.9/5 تقييم مراجعينا)</span>
-</div>
-<button id="topBtn" onclick="window.scrollTo(0,0)" style="display:none; position:fixed; bottom:20px; left:20px; background:var(--primary); color:white; border-radius:50%; width:45px; height:45px; border:none; cursor:pointer; z-index:1000;">
-    <i class="fas fa-arrow-up"></i>
-</button>
-
-<script>
-window.onscroll = function() {
-    document.getElementById("topBtn").style.display = (window.scrollY > 300) ? "block" : "none";
-};
-</script>
-<div class="fab-container" style="position:fixed; bottom:20px; right:20px; z-index:999;">
-    <button onclick="toggleFab()" style="width:60px; height:60px; border-radius:50%; background:var(--primary); color:white; border:none; font-size:24px; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2);">
-        <i class="fas fa-plus" id="fab-icon"></i>
-    </button>
-    <div id="fab-menu" style="display:none; flex-direction:column; gap:10px; margin-bottom:10px; position:absolute; bottom:70px; right:5px;">
-        <a href="tel:+966112043386" style="background:#3498db; width:50px; height:50px; border-radius:50%; display:flex; justify-content:center; align-items:center; color:white;"><i class="fas fa-phone"></i></a>
-        <a href="https://wa.me/966560502760" style="background:#25d366; width:50px; height:50px; border-radius:50%; display:flex; justify-content:center; align-items:center; color:white;"><i class="fab fa-whatsapp"></i></a>
-    </div>
-</div>
-
-<script>
-function toggleFab() {
-    const menu = document.getElementById('fab-menu');
-    const icon = document.getElementById('fab-icon');
-    menu.style.display = menu.style.display === 'none' ? 'flex' : 'none';
-    icon.style.transform = menu.style.display === 'none' ? 'rotate(0deg)' : 'rotate(45deg)';
-}
-</script>
