@@ -223,3 +223,53 @@
 </body>
 </html>
 
+<section id="booking" class="booking-section" data-aos="zoom-in">
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
+        <h2 style="margin-bottom: 20px;">حجز موعد سريع</h2>
+        <form id="appointmentForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: right;">
+                <div class="input-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="name" placeholder="أدخل اسمك" required style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; margin-top:5px;">
+                </div>
+                <div class="input-group">
+                    <label>رقم الهاتف</label>
+                    <input type="tel" id="phone" placeholder="05xxxxxxxx" required style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; margin-top:5px;">
+                </div>
+                <div class="input-group">
+                    <label>اختر اليوم</label>
+                    <input type="date" id="date" required style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; margin-top:5px;">
+                </div>
+                <div class="input-group">
+                    <label>اختر الوقت</label>
+                    <select id="time" required style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; margin-top:5px;">
+                        <option value="2:00 PM">2:00 PM</option>
+                        <option value="4:00 PM">4:00 PM</option>
+                        <option value="6:00 PM">6:00 PM</option>
+                        <option value="8:00 PM">8:00 PM</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" onclick="sendToWhatsApp()" class="btn-main" style="width: 100%; margin-top: 25px; border: none;">تأكيد الحجز عبر واتساب</button>
+        </form>
+    </div>
+</section>
+
+<script>
+function sendToWhatsApp() {
+    // زر جمع البيانات
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+
+    if(name && phone && date && time) {
+        // زر التوجيه للواتساب مع الرسالة المجهزة
+        const message = `مرحباً عيادة DentoCare، أرغب في حجز موعد:%0A الاسم: ${name}%0A الرقم: ${phone}%0A التاريخ: ${date}%0A الوقت: ${time}`;
+        window.open(`https://wa.me/966112043386?text=${message}`, '_blank');
+    } else {
+        alert("يرجى تعبئة كافة البيانات المطلوبة");
+    }
+}
+</script>
