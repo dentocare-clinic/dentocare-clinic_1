@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستشفى المملكة والعيادات الاستشارية | Kingdom Hospital</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Tajawal:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ================= متغيرات الألوان (علم النفس اللوني) ================= */
+        :root {
+            --primary-color: #2c3e50; /* الأزرق الغامق: يوحي بالثقة والخبرة */
+            --secondary-color: #27ae60; /* الأخضر: يوحي بالشفاء والنمو */
+            --accent-color: #e67e22; /* البرتقالي: للفت الانتباه لأزرار الحجز */
+            --bg-light: #f9fbfd; /* خلفية سماوية فاتحة جداً مريحة للعين */
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.05); /* ظل ناعم جداً */
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* حركة انسيابية */
+        }
+
+        /* ================= التنسيقات العامة ================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif; /* الخط العربي الافتراضي */
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* كلاس لتغيير الخط عند التحويل للإنجليزي */
+        body.english-font {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        a { text-decoration: none; }
+        ul { list-style: none; }
+
+        /* ================= الهيدر وشريط التنقل ================= */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); /* تأثير الزجاج */
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i { color: var(--secondary-color); font-size: 1.8rem; }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* زر الترجمة */
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .lang-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* زر الحجز الرئيسي */
+        .btn-main {
+            background: var(--secondary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            background: #219150;
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        /* ================= قسم البطل (Hero Section) ================= */
+        .hero {
+            position: relative;
+            height: 85vh;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1516549655169-df83a063aa68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* علامة الأمان (لحل مشكلة Not Secure) */
+        .secure-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(39, 174, 96, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--secondary-color);
+            color: #58d68d;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* ================= قسم الخدمات (Cards) ================= */
+        .services {
+            padding: 80px 10%;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            border: 1px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+            text-align: center; /* لضمان توسط الأيقونات */
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: #e8f6f3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 30px;
+            margin: 0 auto 20px; /* توسيط الأيقونة */
+            transition: var(--transition);
+        }
+
+        .card:hover .card-icon {
+            background: var(--secondary-color);
+            color: white;
+            transform: rotate(360deg);
+        }
+
+        /* ================= أزرار التواصل العائمة (Floating Buttons) ================= */
+        .floating-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 30px; /* سيتغير تلقائياً مع اتجاه الصفحة */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        /* تعديل الموضع بناءً على الاتجاه */
+        html[dir="ltr"] .floating-contact {
+            right: 30px;
+            left: auto;
+        }
+        
+        html[dir="rtl"] .floating-contact {
+            right: auto;
+            left: 30px;
+        }
+
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .btn-whatsapp { background: #25D366; }
+        .btn-phone { background: #3498db; }
+
+        .float-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* التلميح (Tooltip) الذي يظهر بجانب الزر */
+        .tooltip {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+        
+        /* ضبط مكان التلميح حسب اللغة */
+        html[dir="rtl"] .tooltip { left: 70px; }
+        html[dir="ltr"] .tooltip { right: 70px; }
+
+        .float-btn:hover .tooltip { opacity: 1; }
+
+        /* ================= أنيميشن ================= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= الفوتر ================= */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-hospital-user"></i>
+            <span id="logo-text">مستشفى المملكة</span>
+        </div>
+        <div class="nav-actions">
+            <button class="lang-btn" onclick="toggleLanguage()">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-text">English</span>
+            </button>
+            <a href="#" class="btn-main">
+                <i class="fa-regular fa-calendar-check"></i>
+                <span id="book-btn">احجز موعدك</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="secure-badge">
+                <i class="fa-solid fa-lock"></i>
+                <span id="secure-text">موقع آمن ومحمي 100%</span>
+            </div>
+            <h1 id="hero-title">رعاية صحية عالمية.. بين يديك</h1>
+            <p id="hero-desc">نحن هنا لنقدم لك ولعائلتك أفضل الخدمات الطبية بمعايير عالمية ونخبة من الاستشاريين.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn-main" style="background: var(--white); color: var(--primary-color);">
+                    <i class="fa-solid fa-stethoscope"></i>
+                    <span id="doctors-btn">تصفح الأطباء</span>
+                </a>
+                <a href="#" class="btn-main">
+                    <span id="cta-hero">ابدأ رحلة العلاج</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="section-title">
+            <h2 id="services-title">خدماتنا المتميزة</h2>
+            <p id="services-desc">كل ما تحتاجه من رعاية تحت سقف واحد</p>
+        </div>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-tooth"></i></div>
+                <h3 id="serv-1-title">طب الأسنان</h3>
+                <p id="serv-1-desc">ابتسامة هوليود، زراعة الأسنان، وتقويم شفاف بأحدث التقنيات.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                <h3 id="serv-2-title">مركز القلب</h3>
+                <p id="serv-2-desc">تشخيص دقيق وعناية فائقة لمرضى القلب والأوعية الدموية.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                <h3 id="serv-3-title">العيادات الاستشارية</h3>
+                <p id="serv-3-desc">نخبة من الأطباء الاستشاريين السعوديين والعالميين.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="floating-contact">
+        <a href="https://wa.me/966560502760" target="_blank" class="float-btn btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="tooltip" id="tip-whatsapp">تواصل واتساب</span>
+        </a>
+        
+        <a href="tel:920000751" class="float-btn btn-phone">
+            <i class="fa-solid fa-phone-flip"></i>
+            <span class="tooltip" id="tip-phone">اتصال فوري</span>
+        </a>
+    </div>
+
+    <footer>
+        <p id="footer-text">© 2026 جميع الحقوق محفوظة - مستشفى المملكة والعيادات الاستشارية</p>
+    </footer>
+
+    <script>
+        // قاموس الترجمة
+        const translations = {
+            ar: {
+                logo: "مستشفى المملكة",
+                langBtn: "English",
+                bookBtn: "احجز موعدك",
+                secure: "موقع آمن ومحمي 100%",
+                heroTitle: "رعاية صحية عالمية.. بين يديك",
+                heroDesc: "نحن هنا لنقدم لك ولعائلتك أفضل الخدمات الطبية بمعايير عالمية ونخبة من الاستشاريين.",
+                docBtn: "تصفح الأطباء",
+                ctaHero: "ابدأ رحلة العلاج",
+                servTitle: "خدماتنا المتميزة",
+                servDesc: "كل ما تحتاجه من رعاية تحت سقف واحد",
+                serv1Title: "طب الأسنان",
+                serv1Desc: "ابتسامة هوليود، زراعة الأسنان، وتقويم شفاف بأحدث التقنيات.",
+                serv2Title: "مركز القلب",
+                serv2Desc: "تشخيص دقيق وعناية فائقة لمرضى القلب والأوعية الدموية.",
+                serv3Title: "العيادات الاستشارية",
+                serv3Desc: "نخبة من الأطباء الاستشاريين السعوديين والعالميين.",
+                tipWa: "تواصل واتساب",
+                tipPh: "اتصال فوري",
+                footer: "© 2026 جميع الحقوق محفوظة - مستشفى المملكة والعيادات الاستشارية"
+            },
+            en: {
+                logo: "Kingdom Hospital",
+                langBtn: "العربية",
+                bookBtn: "Book Now",
+                secure: "100% Secure Website",
+                heroTitle: "World-Class Healthcare For You",
+                heroDesc: "Providing you and your family with the best medical services by elite consultants.",
+                docBtn: "Our Doctors",
+                ctaHero: "Start Treatment",
+                servTitle: "Our Services",
+                servDesc: "Everything you need under one roof",
+                serv1Title: "Dental Care",
+                serv1Desc: "Hollywood smile, implants, and clear aligners using latest tech.",
+                serv2Title: "Heart Center",
+                serv2Desc: "Precise diagnosis and superior care for cardiovascular patients.",
+                serv3Title: "Consulting Clinics",
+                serv3Desc: "Elite group of Saudi and international consultants.",
+                tipWa: "Chat on WhatsApp",
+                tipPh: "Call Now",
+                footer: "© 2026 All Rights Reserved - Kingdom Hospital & Consulting Clinics"
+            }
+        };
+
+        function toggleLanguage() {
+            const htmlTag = document.documentElement;
+            const currentLang = htmlTag.getAttribute('lang');
+            const isArabic = currentLang === 'ar';
+            
+            // تبديل اللغة
+            const newLang = isArabic ? 'en' : 'ar';
+            const dir = isArabic ? 'ltr' : 'rtl';
+            
+            // تحديث السمات
+            htmlTag.setAttribute('lang', newLang);
+            htmlTag.setAttribute('dir', dir);
+            document.body.classList.toggle('english-font');
+
+            // جلب النصوص المناسبة من القاموس
+            const t = translations[newLang];
+
+            // تحديث النصوص في الصفحة
+            document.getElementById('logo-text').innerText = t.logo;
+            document.getElementById('lang-text').innerText = t.langBtn;
+            document.getElementById('book-btn').innerText = t.bookBtn;
+            document.getElementById('secure-text').innerText = t.secure;
+            document.getElementById('hero-title').innerText = t.heroTitle;
+            document.getElementById('hero-desc').innerText = t.heroDesc;
+            document.getElementById('doctors-btn').innerText = t.docBtn;
+            document.getElementById('cta-hero').innerText = t.ctaHero;
+            document.getElementById('services-title').innerText = t.servTitle;
+            document.getElementById('services-desc').innerText = t.servDesc;
+            document.getElementById('serv-1-title').innerText = t.serv1Title;
+            document.getElementById('serv-1-desc').innerText = t.serv1Desc;
+            document.getElementById('serv-2-title').innerText = t.serv2Title;
+            document.getElementById('serv-2-desc').innerText = t.serv2Desc;
+            document.getElementById('serv-3-title').innerText = t.serv3Title;
+            document.getElementById('serv-3-desc').innerText = t.serv3Desc;
+            document.getElementById('tip-whatsapp').innerText = t.tipWa;
+            document.getElementById('tip-phone').innerText = t.tipPh;
+            document.getElementById('footer-text').innerText = t.footer;
+        }
+    </script>
+</body>
+</html>
+
